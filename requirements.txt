@@ -1,0 +1,12 @@
+flask_sqlalchemy
+django
+gunicorn
+django-heroku
+requests
+datetime
+psycopg2
+psycopg2-binary
+dj-database-url
+google
+plotly
+pandas
