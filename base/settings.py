@@ -119,9 +119,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')    #from Heroku - for static file collection
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    #from Heroku - for static file collection
+#extra locations to search for static files - from Heroku
 STATICFILES_DIRS = (
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),   #changed from staticfiles to static to enable static files on 'base'
 )
 
 
