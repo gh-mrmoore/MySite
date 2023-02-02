@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9-^$82bjdi+s&zs7-*oti1a5#dh=y5-9ycvwgtew4!xaj5igod'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','matthewmoore.herokuapp.com']
 
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'base.urls'
@@ -118,8 +119,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')    #from Heroku - for static file collection
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 #extra locations to search for static files - from Heroku
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),   #changed from staticfiles to static to enable static files on 'base'

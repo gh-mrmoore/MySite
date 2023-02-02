@@ -10,3 +10,4 @@ dj-database-url
 google
 plotly
 pandas
+whitenoise
