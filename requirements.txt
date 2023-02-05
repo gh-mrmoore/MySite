@@ -11,3 +11,4 @@ google
 plotly
 pandas
 whitenoise
+django-environ
