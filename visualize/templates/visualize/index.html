@@ -23,13 +23,57 @@
             <h2>Visualizations Details</h2>
             <hr />
             <hr />
-
+            <form method="post" action="/revenue/">
+                {% csrf_token %}
+                <label for="state">Choose a US state:</label><br />
+                <select id="state" name="state" multiple>
+                    <option value="All">All</option>
+                    {% for state in revenue_unique_states %}
+                    <option value="{{ state.order_state }}">{{ state }}</option>
+                    {% endfor %}
+                </select><br />
+                <input type="submit" value="Select State" />
+            </form>
 
         </div>
         <div class="main">
             <h2>Visualizations Page</h2>
             <hr />
             <hr />
+            <h2>Table: Order Count by State (US Only)</h2>
+            <table width="100%">
+                <tr>
+                    <th>State</th>
+                    <th>Order Count</th>
+                </tr>
+                {% for state in order_count_by_state.iterrows %}
+                <tr>
+                    <td><a href="/revenue/detail/{{ state.order_state }}">{{ state.0 }}</a.</td>
+                    <td>{{ state.1|intcomma }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        <div class="right">
+            <h2>Table: Order Revenue by State</h2>
+            {% if order_revenue_by_state %}
+            <h2>Table: Order Revenue by State (US Only)</h2>
+            <table width="100%">
+                <tr>
+                    <th>State</th>
+                    <th>Revenue</th>
+                </tr>
+                {% for rstate in order_revenue_by_state %}
+                <tr>
+                    <td>{{ rstate.order_state }}</td>
+                    <td>{{ rstate.state_revenue_sum|intcomma }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <p>Error. There appears to be missing data here.</p>
+            {% endif %}
 
         </div>
         <div class="right">

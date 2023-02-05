@@ -5,15 +5,16 @@ import pandas as pd
 # Since we're not using a database any longer to save some money, we're going to use the csv files that I've saved on my GitHub account.
 
 def index(request):  # Create a company-wide overview home page to start from
-    # revenue_df = pd.read_csv("https://raw.githubusercontent.com/gh-mrmoore/MySite/main/visualize/static/visualize/test_data.csv")  # Get my data and create a pandas DataFrame with it
+    revenue_df = pd.read_csv("https://raw.githubusercontent.com/gh-mrmoore/MySite/main/visualize/static/visualize/test_data.csv")  # Get my data and create a pandas DataFrame with it
 
-    # revenue_unique_states = revenue_df["order_state"].unique()  # get my unique state values to pass to the template
+    revenue_unique_states = revenue_df["order_state"].unique()  # get my unique state values to pass to the template
 
-    # order_count_by_state = revenue_df["order_state"].value_counts().to_frame(name="order_count").to_html()
+    order_count_by_state = revenue_df["order_state"].value_counts().to_frame(name="order_count")
 
     # Create my context variable to pass objects to the template page
     home_context = {
-        # 'revenue_unique_states': revenue_unique_states, 
+        'revenue_unique_states': revenue_unique_states, 
+        'order_count_by_state': order_count_by_state, 
         }
     
     # Render the template page and pass in the context dictionary
