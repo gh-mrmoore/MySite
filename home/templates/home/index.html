@@ -21,6 +21,12 @@
     <div class="content">
         <div class="left">
             <h2>Home Details</h2>
+            <hr />
+            <hr />
+            <span class="weather">
+                <span class="conditions"><img src="{{current_weather.1}}" title="{{current_weather.0}}" alt="{{current_weather.0}}" /></span>
+                <span class="temperature">{{ current_weather.2|floatformat:1 }}&deg;</span>
+            </span>
         </div>
         <div class="main">
             <h2>Home Page</h2>

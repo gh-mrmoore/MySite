@@ -1,24 +1,66 @@
 from django.shortcuts import render
 import pandas as pd
+from .other import my_weather
 
 # Create your views here.
 # Since we're not using a database any longer to save some money, we're going to use the csv files that I've saved on my GitHub account.
 
-def index(request):  # Create a company-wide overview home page to start from
-    revenue_df = pd.read_csv("https://raw.githubusercontent.com/gh-mrmoore/MySite/main/visualize/static/visualize/test_data.csv")  # Get my data and create a pandas DataFrame with it
+def index(request):
+    home_context = {}  # Create my context variable to pass objects to the template page
 
-    revenue_unique_states = revenue_df["order_state"].unique()  # get my unique state values to pass to the template
+    home_context['current_weather'] = my_weather()  #add weather conditions and temperature to context
 
-    order_count_by_state = revenue_df["order_state"].value_counts().to_frame(name="order_count")
+    full_revenue_df = pd.read_csv("https://raw.githubusercontent.com/gh-mrmoore/MySite/main/visualize/static/visualize/test_data.csv")  # Get data and create a pandas DataFrame with it
 
-    # Create my context variable to pass objects to the template page
-    home_context = {
-        'revenue_unique_states': revenue_unique_states, 
-        'order_count_by_state': order_count_by_state, 
-        }
-    
-    # Render the template page and pass in the context dictionary
-    return render(request, 'visualize/index.html', context=home_context)
+    home_context['revenue_unique_states'] = full_revenue_df["order_state"].unique()  # get my unique state values to pass to the template
+
+    if request.method == 'POST':
+        home_context['selected_states'] = request.POST['state_choice']
+        if home_context['selected_states'] == 'All':
+            home_context['final_order_count_by_state'] = full_revenue_df["order_state"].value_counts().to_frame(name="order_count")  # get my order count by each state
+        else:
+            order_count_df = full_revenue_df["order_state"].value_counts().to_frame(name="order_count")
+            state_order_count_df = order_count_df.loc[order_count_df.index == home_context['selected_states']]
+            home_context['final_order_count_by_state'] = state_order_count_df
+    else:
+        home_context['final_order_count_by_state'] = full_revenue_df["order_state"].value_counts().to_frame(name="order_count")  # get my order count by each state
+
+    return render(request, 'visualize/index.html', context=home_context)  # Render the template page and pass in the context dictionary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 """
 def revenue(request):  # Create my home page for the revenue section of the reporting site
