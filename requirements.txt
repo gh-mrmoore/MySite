@@ -12,3 +12,4 @@ plotly
 pandas
 whitenoise
 django-environ
+requests
