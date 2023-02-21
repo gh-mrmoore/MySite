@@ -27,6 +27,16 @@ def index(request):
 
     return render(request, 'visualize/index.html', context=home_context)  # Render the template page and pass in the context dictionary
 
+def state_detail(request, state):
+    state_detail_context = {}  # Context variable
+
+    revenue_df = pd.read_csv("https://raw.githubusercontent.com/gh-mrmoore/MySite/main/visualize/static/visualize/test_data.csv")  # Get data and create a pandas DataFrame with it
+
+    state_detail_context['companies_by_state'] = revenue_df.loc[revenue_df['order_state'] == state]
+    state_detail_context['state_chosen'] = state
+
+    return render(request, 'visualize/state_detail.html', context=state_detail_context)
+
 
 
 

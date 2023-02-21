@@ -1,0 +1,58 @@
+{% load static %}
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Data Visualization Proof of Concept</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home-css.css' %}">
+</head>
+<body>
+    <div class="header">Matthew Moore | Visualizations Page</div>
+    <div class="menu">
+        <div class="menuselect"><a href="/">Home</a></div>
+        <div class="menuselect"><a href="/visualize">Visualization Demo</a></div>
+        <div class="menuselect"><a href="/">ARMA Forecasting (Coming Soon)</a></div>
+        <div class="menuselect"><a href="/">Link 3</a></div>
+        <div class="menuselect"><a href="/">Link 4</a></div>
+    </div>
+    <div class="content">
+        <div class="left">
+            <h2>State Details</h2>
+            <hr />
+            <hr />
+
+
+        </div>
+        <div class="main">
+            <table width="100%">
+                <tr>
+                    <th>State</th>
+                    <th>Order Number</th>
+                    <th>Order Date</th>
+                    <th>Company</th>
+                    <th>Revenue</th>
+                    <th>Product</th>
+                </tr>
+                {% for record in companies_by_state.iterrows %}
+                <tr>
+                    <td>{{ state_chosen }}</td>
+                    <td>{{ record.1.0 }}</td>
+                    <td>{{ record.1.1 }}</td>
+                    <td>{{ record.1.2 }}</td>
+                    <td>{{ record.1.3|intcomma }}</td>
+                    <td>{{ record.1.5 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="right">
+            <h2>Visualizations Sidebar</h2>
+        </div>
+    </div>
+    <div class="footer">&copy; Matthew Moore, 2023</div>
+
+</body>
+</html>

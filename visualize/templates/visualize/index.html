@@ -61,7 +61,7 @@
                 </tr>
                 {% for state in final_order_count_by_state.iterrows %}
                 <tr>
-                    <td><a href="/revenue/detail/{{ state.0 }}">{{ state.0 }}</a.</td>
+                    <td><a href="/visualize/detail/{{ state.0 }}">{{ state.0 }}</a.</td>
                     <td>{{ state.1|intcomma }}</td>
                 </tr>
                 {% endfor %}
